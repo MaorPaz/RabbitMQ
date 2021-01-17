@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: logan-ingress-tls
+spec:
+  secretName: logan-ingress-tls
+  issuerRef:
+    name: hwc-letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: audit.akeyless.asia
+  dnsNames:
+    - audit.akeyless.asia
+    - audit-ro.akeyless.asia

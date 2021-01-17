@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: web-ui-ingress-tls
+spec:
+  secretName: web-ui-ingress-tls
+  issuerRef:
+    name: hwc-letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: console.akeyless.asia
+  dnsNames:
+    - console.akeyless.asia

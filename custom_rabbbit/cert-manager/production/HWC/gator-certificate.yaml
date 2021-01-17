@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: gator-ingress-tls
+spec:
+  secretName: gator-ingress-tls
+  issuerRef:
+    name: hwc-letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: gator.akeyless.asia
+  dnsNames:
+    - gator.akeyless.asia
+    - gator-ro.akeyless.asia

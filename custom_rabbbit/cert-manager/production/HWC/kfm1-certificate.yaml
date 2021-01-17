@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: kfm1-ingress-tls
+spec:
+  secretName: kfm1-ingress-tls
+  issuerRef:
+    name: hwc-letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: kfm1.akeyless.asia
+  dnsNames:
+    - kfm1.akeyless.asia
+    - kfm1-ro.akeyless.asia

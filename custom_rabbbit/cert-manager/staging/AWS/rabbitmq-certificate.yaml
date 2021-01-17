@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: rabbitmq-tls
+  namespace: rabbitmq
+spec:
+  secretName: rabbitmq-tls
+  issuerRef:
+    name: aws-letsencrypt-staging
+    kind: ClusterIssuer
+  commonName: mq.staging.akeyless.dev
+  dnsNames:
+    - mq.staging.akeyless.dev
