@@ -1,0 +1,3 @@
+FROM rabbitmq:3.8.5-management
+
+RUN rabbitmq-plugins enable --offline rabbitmq_consistent_hash_exchange rabbitmq_management rabbitmq_trust_store rabbitmq_peer_discovery_k8s rabbitmq_auth_backend_oauth2
