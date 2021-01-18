@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: rabbit-secret-tls
+  namespace: rabbits
+spec:
+  dnsNames:
+    - mq.example.com
+  secretName: selfsigned-cert-tls
+  issuerRef:
+    name: test-selfsigned

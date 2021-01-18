@@ -4,7 +4,7 @@ metadata:
   name: rabbitmq
 spec:
   serviceName: rabbitmq
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: rabbitmq
@@ -28,12 +28,14 @@ spec:
               mountPath: /etc/rabbitmq/
       containers:
         - name: rabbitmq
-          image: rabbitmq:3.8-management
+          image: akeyless/rabbitmq-delayed-message:3.8.5-alpine
           ports:
             - containerPort: 4369
               name: discovery
             - containerPort: 5672
               name: amqp
+            - containerPort: 5671
+              name: amqps
           env:
             - name: RABBIT_POD_NAME
               valueFrom:
@@ -65,11 +67,17 @@ spec:
               mountPath: /config/
             - name: plugins-file
               mountPath: /etc/rabbitmq/
+            - name: cert
+              mountPath: /etc/cert
       volumes:
         - name: config-file
           emptyDir: {}
         - name: plugins-file
           emptyDir: {}
+        - name: cert
+          secret:
+            secretName: "selfsigned-cert-tls"
+            defaultMode: 0755
         - name: config
           configMap:
             name: rabbitmq-config
@@ -89,7 +97,7 @@ kind: Service
 metadata:
   name: rabbitmq
 spec:
-  clusterIP: None
+  type: LoadBalancer
   ports:
     - port: 4369
       targetPort: 4369
@@ -97,5 +105,8 @@ spec:
     - port: 5672
       targetPort: 5672
       name: amqp
+    - port: 5671
+      targetPort: 5671
+      name: amqps
   selector:
     app: rabbitmq
