@@ -12,14 +12,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rabbitmq
 rules:
-  - apiGroups:
-      - ""
-    resources:
-      - endpoints
-    verbs:
-      - get
-      - list
-      - watch
+  - apiGroups: [""]
+    resources: ["endpoints", "pods"]
+    verbs: ["get", "patch", "list", "watch", "delete"]
 # This is a role binding service account to the role to the rabbit namespace.
 ---
 kind: RoleBinding
