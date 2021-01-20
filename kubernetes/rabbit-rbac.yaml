@@ -1,22 +1,18 @@
-# Here we are making the service account of rabbit to run on so it can makes a call to the kubernetes api
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: rabbitmq
 ---
-# In order to allow it on the kubernetes we need to create a role
-# we gave access to in the verbs section
-# this configuration neede to access other RabbitMQ nodes and to communicate with theme.
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: rabbitmq
 rules:
-  - apiGroups: [""]
-    resources: ["endpoints", "pods"]
-    verbs: ["get", "patch", "list", "watch", "delete"]
-# This is a role binding service account to the role to the rabbit namespace.
+  - apiGroups: ["apps"]
+    resources: ["statefulsets", "pods", "endpoints"]
+    verbs: ["get", "patch", "list", "watch", "delete","update", "create"]
 ---
+
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -30,3 +26,20 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: rabbitmq
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
